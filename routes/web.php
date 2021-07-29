@@ -30,8 +30,6 @@ Route::middleware('auth') // autenticazione
 //ROTTE PUBBLICHE
 Route::get('{any?}', 'HomeController@index')->where('any', '.*')->name('home');
 
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
