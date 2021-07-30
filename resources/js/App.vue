@@ -2,6 +2,15 @@
   <div class="text-center ">
       <h1>Post</h1>
       <p>Riprova più tardi</p>
+
+      <div
+      v-for="post in posts"
+      class="border border-secondary m-3 text-left p-5"
+      :key="post.id"
+      >
+        <h1>{{post.title}}</h1>
+        <p>{{post.content}}</p>
+      </div>
   </div>
 </template>
 
@@ -27,12 +36,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped >
-    div {
-        margin:50px;
+<style lang="scss" >
+    @import '../sass/app.scss';
 
-        h1 {
-            text-transform: uppercase;
-        }
-    }
 </style>>
