@@ -1,42 +1,88 @@
 <template>
   <div class="text-center ">
-      <h1>Post</h1>
-      <p>Riprova più tardi</p>
+    <Header />
 
-      <div
-      v-for="post in posts"
-      class="border border-secondary m-3 text-left p-5"
-      :key="post.id"
-      >
-        <h1>{{post.title}}</h1>
-        <p>{{post.content}}</p>
+    <div id="card-conteiner">
+            <Card 
+                v-for="post in posts"
+                :key="post.id"
+                :item="post"
+            />
+
+    </div>
+    <button 
+            class="btn mr-2"
+            :class="(n == current_page) ? 'btn-primary' : 'btn-info'"
+            v-for="n in last_page"
+            :key="n"
+            @click="getPosts(n)"  
+            >
+            {{ n }}
+    </button>
+
       </div>
-  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Card from './components/Card';
+import Header from './components/Header.vue';
 export default {
+  components: { 
+      Header,
+      Card
+   },
     name:'App',
     data: function() {
         return {
-        posts: []
+        posts: [],
+        current_page: 1,
+        last_page: 1,
       }
     },
-    created(){
-        axios
-        .get(`http://127.0.0.1:8000/api/posts`)
-        .then(response => {
-            this.posts= response.data;
+    created: function(){
+        this.getPosts();
+    },
+   methods: {
+      truncateText: function(string, charsNumber = 100) {
+        if(string.length > charsNumber) {
+          return string.substr(0, charsNumber) + '...';
+        } else {
+          return string;
         }
+      },
+      getPosts: function(page = 1) {
+        axios
+        .get(`http://127.0.0.1:8000/api/posts?page=${page}`)
+        .then(
+          res => {
+            console.log(res.data);
+            this.posts = res.data.data;
+            this.current_page = res.data.current_page;
+            this.last_page = res.data.last_page;
+            this.posts.forEach(
+              element => {
+                element.excerpt = this.truncateText(element.content, 150);
+              }
+            );
+          }
+        )
+        .catch(
+          err => {
+            console.log(err);
+          }
         );
+      }
+    },
 
-    }
-    
 }
 </script>
 
 <style lang="scss" >
     @import '../sass/app.scss';
+    #card-conteiner {
+        display: flex;
+        margin: 50px 0;
+    }
 
 </style>>
