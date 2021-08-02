@@ -16,7 +16,8 @@
                 <!-- <a class="nav-link" href="#">Contatti</a> -->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">chi siamo</a>
+                <router-link class="nav-link" :to="{ name: 'about' }">Chi siamo</router-link>
+                <!-- <a class="nav-link" href="#">chi siamo</a> -->
             </li>
             </ul>
         </div>
