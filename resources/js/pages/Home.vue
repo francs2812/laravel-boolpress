@@ -1,6 +1,6 @@
 <template>
 <div class="container text-center">
-  <h1>Benvenuto !</h1>
+  <h1 class="text-center">POST :</h1>
   <div id="card-conteiner">
             <Card 
                 v-for="post in posts"

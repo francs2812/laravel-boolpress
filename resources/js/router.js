@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 //pagine importate
 import Home from './pages/Home';
+import Contatti from './pages/Contatti';
 
 const router = new VueRouter({
     mode: 'history',
@@ -13,6 +14,12 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home 
+         },
+
+         {
+            path: '/contatti',
+            name: 'contatti',
+            component: Contatti 
          }
     ]
 });

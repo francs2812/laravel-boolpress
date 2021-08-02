@@ -1,0 +1,15 @@
+<template>
+  <div class="container">
+      <h1>Contatti</h1>
+  </div>
+</template>
+
+<script>
+export default {
+    name: 'Contatti',
+}
+</script>
+
+<style>
+
+</style>
