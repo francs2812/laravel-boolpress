@@ -1,88 +1,22 @@
 <template>
-  <div class="text-center ">
-    <Header />
-
-    <div id="card-conteiner">
-            <Card 
-                v-for="post in posts"
-                :key="post.id"
-                :item="post"
-            />
-
+  
+    <div>
+        <Header />
+        <router-view></router-view>
+        <Footer />
     </div>
-    <button 
-            class="btn mr-2"
-            :class="(n == current_page) ? 'btn-primary' : 'btn-info'"
-            v-for="n in last_page"
-            :key="n"
-            @click="getPosts(n)"  
-            >
-            {{ n }}
-    </button>
 
-      </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Card from './components/Card';
-import Header from './components/Header.vue';
+import Footer from './components/Footer.vue'
+import Header from './components/Header.vue'
 export default {
-  components: { 
-      Header,
-      Card
-   },
-    name:'App',
-    data: function() {
-        return {
-        posts: [],
-        current_page: 1,
-        last_page: 1,
-      }
-    },
-    created: function(){
-        this.getPosts();
-    },
-   methods: {
-      truncateText: function(string, charsNumber = 100) {
-        if(string.length > charsNumber) {
-          return string.substr(0, charsNumber) + '...';
-        } else {
-          return string;
-        }
-      },
-      getPosts: function(page = 1) {
-        axios
-        .get(`http://127.0.0.1:8000/api/posts?page=${page}`)
-        .then(
-          res => {
-            console.log(res.data);
-            this.posts = res.data.data;
-            this.current_page = res.data.current_page;
-            this.last_page = res.data.last_page;
-            this.posts.forEach(
-              element => {
-                element.excerpt = this.truncateText(element.content, 150);
-              }
-            );
-          }
-        )
-        .catch(
-          err => {
-            console.log(err);
-          }
-        );
-      }
-    },
-
+  components: { Header, Footer },
+    name: 'App'
 }
 </script>
 
-<style lang="scss" >
-    @import '../sass/app.scss';
-    #card-conteiner {
-        display: flex;
-        margin: 50px 0;
-    }
+<style>
 
-</style>>
+</style>

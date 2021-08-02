@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>POST</h1>
+      <h1 class="text-center">POST :</h1>
   </div>
 </template>
 
