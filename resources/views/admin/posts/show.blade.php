@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container my-4">
+        @if ($post->cover)
+            <img class="img-fluid" src="{{ asset('storage/'. $post->cover) }}" alt="{{ $post->title }}"> 
+        @endif
         <h1>
             {{ $post->title }} 
             @if ($post->category)        

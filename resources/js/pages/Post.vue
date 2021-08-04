@@ -1,22 +1,27 @@
 <template>
   <div class="container">
-      <h1> {{ post.title }} </h1>
-      <h4> <span  class="text-primary">Categoria:</span> {{ post.category.name }} </h4>
-      <h4 class="text-success">Tag: 
-          <span class="text-dark"
-           v-for="(tag, index) in tags"
-           :key="index"
-          >
-              {{tag.name }},
-          </span>
-      </h4>
-      <p class="text-secondary"> {{ post.content }} </p>
+      <div v-if="post">
+        <h1> {{ post.title }} </h1>
+        <h4> <span  class="text-primary">Categoria:</span> {{ post.category.name }} </h4>
+        <h4 class="text-success">Tag: 
+            <span class="text-dark"
+            v-for="(tag, index) in tags"
+            :key="index"
+            >
+                {{tag.name }},
+            </span>
+        </h4>
+        <p class="text-secondary"> {{ post.content }} </p>
+      </div>
+      <div v-if="post.cover">
+        <img :src="'http://127.0.0.1:8000/storage/' + post.cover" alt="ca">
+      </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Post',
+    name:'Post',
     data: function() {
         return {
             post: null,

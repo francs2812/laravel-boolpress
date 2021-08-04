@@ -2214,6 +2214,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Post',
   data: function data() {
@@ -4109,30 +4114,47 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v(" " + _vm._s(_vm.post.title) + " ")]),
-    _vm._v(" "),
-    _c("h4", [
-      _c("span", { staticClass: "text-primary" }, [_vm._v("Categoria:")]),
-      _vm._v(" " + _vm._s(_vm.post.category.name) + " ")
-    ]),
-    _vm._v(" "),
-    _c(
-      "h4",
-      { staticClass: "text-success" },
-      [
-        _vm._v("Tag: \n        "),
-        _vm._l(_vm.tags, function(tag, index) {
-          return _c("span", { key: index, staticClass: "text-dark" }, [
-            _vm._v("\n            " + _vm._s(tag.name) + ",\n        ")
+    _vm.post
+      ? _c("div", [
+          _c("h1", [_vm._v(" " + _vm._s(_vm.post.title) + " ")]),
+          _vm._v(" "),
+          _c("h4", [
+            _c("span", { staticClass: "text-primary" }, [_vm._v("Categoria:")]),
+            _vm._v(" " + _vm._s(_vm.post.category.name) + " ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "h4",
+            { staticClass: "text-success" },
+            [
+              _vm._v("Tag: \n          "),
+              _vm._l(_vm.tags, function(tag, index) {
+                return _c("span", { key: index, staticClass: "text-dark" }, [
+                  _vm._v(
+                    "\n              " + _vm._s(tag.name) + ",\n          "
+                  )
+                ])
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-secondary" }, [
+            _vm._v(" " + _vm._s(_vm.post.content) + " ")
           ])
-        })
-      ],
-      2
-    ),
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("p", { staticClass: "text-secondary" }, [
-      _vm._v(" " + _vm._s(_vm.post.content) + " ")
-    ])
+    _vm.post.cover
+      ? _c("div", [
+          _c("img", {
+            attrs: {
+              src: "http://127.0.0.1:8000/storage/" + _vm.post.cover,
+              alt: "ca"
+            }
+          })
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Post;
 use App\Tag;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
         'content' => 'required',
         'category_id' => 'nullable|exists:categories,id',
         'tags' => 'exists:tags,id',
-        'cover' => 'nullable|mimes:jpeg'
+        'cover' => 'nullable|mimes:png'
     ];
 
     private function generateSlug($data) {
@@ -76,21 +77,29 @@ class PostController extends Controller
         $request->validate($this->postValidationArray);
         // creazione e salvataggio nuova istanza di classe Post
         $newPost = new Post();
-
+        
         $slug = $this->generateSlug($data);
         // $newPost->title = $data["title"];
         // $newPost->content = $data["content"];
+        
+        // MANDARE URL IMMAGINE A FILL
+        
+        if(array_key_exists('cover', $data)) {
+ 
+            $data["cover"] = Storage::put('post_covers', $data["cover"]);
 
+        }
+        
+        // \MANDARE URL IMMAGINE A FILL
         $data['slug'] = $slug;
         $newPost->fill($data); // aggiungiamo $fillable nel Model (Post)
-
+        
         $newPost->save();
-
+        
         if(array_key_exists('tags', $data)) {
             $newPost->tags()->attach($data["tags"]);
         }
-
-        //$data["cover"] = Storage::put('post_covers', $data["cover"]);
+        
 
         return redirect()->route('admin.posts.show', $newPost->id);
     }

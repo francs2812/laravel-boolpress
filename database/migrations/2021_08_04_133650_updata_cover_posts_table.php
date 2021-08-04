@@ -14,7 +14,7 @@ class UpdataCoverPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table-> String('cover')->nullable()->after('content');
+            $table->string('cover')->nullable()->after('content');
         });
     }
 
@@ -26,7 +26,7 @@ class UpdataCoverPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('content');
+            $table->dropColumn('cover');
         });
     }
 }
