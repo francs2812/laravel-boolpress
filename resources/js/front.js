@@ -10,6 +10,6 @@ const app = new Vue(
     {
         el: '#root',
         render: h => h(App),
-        router // : router (ES6)
+        router
     }
 );

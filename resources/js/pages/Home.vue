@@ -10,6 +10,15 @@
                     />
 
             </div>
+
+            <button 
+              v-show="current_page > 1"
+              class="btn btn-info mr-2"
+              @click="getPosts(current_page - 1)"
+              >
+              Prev
+            </button>
+
             <button 
                     class="btn mr-2"
                     :class="(n == current_page) ? 'btn-primary' : 'btn-info'"
@@ -18,6 +27,14 @@
                     @click="getPosts(n)"  
                     >
                     {{ n }}
+            </button>
+
+            <button 
+              v-show="current_page < last_page"
+              class="btn btn-info mr-2"
+              @click="getPosts(current_page + 1)"
+              >
+              Prev
             </button>
         </div>
 
@@ -43,7 +60,7 @@
 
 <script>
 import axios from 'axios';
-import Card from '../components/Card.vue';
+import Card from '../components/Card';
 export default {
   components: { Card },
     name:'Home',
@@ -55,10 +72,7 @@ export default {
         }
     },
 
-    created: function(){
-    this.getPosts();
-    },
-   methods: {
+    methods: {
       truncateText: function(string, charsNumber = 100) {
         if(string.length > charsNumber) {
           return string.substr(0, charsNumber) + '...';
@@ -71,7 +85,6 @@ export default {
         .get(`http://127.0.0.1:8000/api/posts?page=${page}`)
         .then(
           res => {
-            console.log(res.data);
             this.posts = res.data.data;
             this.current_page = res.data.current_page;
             this.last_page = res.data.last_page;
@@ -87,8 +100,11 @@ export default {
             console.log(err);
           }
         );
-      }
+      },
     },
+    created: function(){
+      this.getPosts();
+    }
 
 }
 </script>

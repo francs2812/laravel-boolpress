@@ -15,7 +15,8 @@ class PostController extends Controller
         'title' => 'required|max:255',
         'content' => 'required',
         'category_id' => 'nullable|exists:categories,id',
-        'tags' => 'exists:tags,id'
+        'tags' => 'exists:tags,id',
+        'cover' => 'nullable|mimes:jpeg'
     ];
 
     private function generateSlug($data) {
@@ -88,6 +89,8 @@ class PostController extends Controller
         if(array_key_exists('tags', $data)) {
             $newPost->tags()->attach($data["tags"]);
         }
+
+        //$data["cover"] = Storage::put('post_covers', $data["cover"]);
 
         return redirect()->route('admin.posts.show', $newPost->id);
     }

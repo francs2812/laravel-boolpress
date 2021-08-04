@@ -3,7 +3,7 @@
 @section('content')
     <h1>Crea una nuovo post</h1>
 
-    <form action="{{ route('admin.posts.store') }}" method="POST">
+    <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="form-group">
@@ -42,6 +42,16 @@
                 </div>     
             @endforeach 
             @error('tags')
+                <div>
+                    <small class="text-danger">{{ $message }}</small> 
+                </div>
+            @enderror  
+        </div>
+
+        <div class="form-group">
+            <label for="cover">Importa cover</label>
+            <input type="file" name="cover" class="form-control-file" id="cover">
+            @error('cover')
                 <div>
                     <small class="text-danger">{{ $message }}</small> 
                 </div>
